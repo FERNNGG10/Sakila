@@ -70,7 +70,9 @@
             <div class="card-footer clearfix">
                 <!-- Si tienes paginación puedes colocarla aquí -->
                 @if(isset($actors) && method_exists($actors, 'links'))
-                    {{ $actors->links() }}
+                    <div class="pagination pagination-sm m-0 float-right">
+                        {{ $actors->links() }}
+                    </div>
                 @endif
             </div>
         </div>

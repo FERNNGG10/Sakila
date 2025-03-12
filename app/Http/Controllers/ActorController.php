@@ -15,7 +15,7 @@ class ActorController extends Controller
      */
     public function index()
     {
-        $actors = Actor::all();
+        $actors = Actor::with('films')->paginate(15);
         return view('actors.index', compact('actors'));
     }
 
