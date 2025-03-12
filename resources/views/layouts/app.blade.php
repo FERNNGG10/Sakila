@@ -5,62 +5,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sakila Admin - Laravel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    
     <style>
-        body {
-            padding-top: 20px;
-            padding-bottom: 20px;
-        }
-        .navbar {
-            margin-bottom: 20px;
-        }
-        .dropdown-menu {
-            max-height: 600px;
+        .sidebar {
             overflow-y: auto;
+            max-height: calc(100vh - 4.5rem);
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">Sakila Admin</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Catálogos
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-dark navbar-dark">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Inicio</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="/" class="brand-link">
+                <span class="brand-text font-weight-light">Sakila Admin</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <a href="{{ route('actors.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>Actores</p>
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ route('actors.index') }}">Actores</a></li>
-                                <li><a class="dropdown-item" href="{{ route('addresses.index') }}">Direcciones</a></li>
-                                <li><a class="dropdown-item" href="{{ route('categories.index') }}">Categorías</a></li>
-                                <li><a class="dropdown-item" href="{{ route('cities.index') }}">Ciudades</a></li>
-                                <li><a class="dropdown-item" href="{{ route('countries.index') }}">Países</a></li>
-                                <li><a class="dropdown-item" href="{{ route('customers.index') }}">Clientes</a></li>
-                                <li><a class="dropdown-item" href="{{ route('films.index') }}">Películas</a></li>
-                                <li><a class="dropdown-item" href="{{ route('film-actors.index') }}">Actores de Películas</a></li>
-                                <li><a class="dropdown-item" href="{{ route('film-categories.index') }}">Categorías de Películas</a></li>
-                                <li><a class="dropdown-item" href="{{ route('film-texts.index') }}">Textos de Películas</a></li>
-                                <li><a class="dropdown-item" href="{{ route('inventories.index') }}">Inventario</a></li>
-                                <li><a class="dropdown-item" href="{{ route('languages.index') }}">Idiomas</a></li>
-                                <li><a class="dropdown-item" href="{{ route('payments.index') }}">Pagos</a></li>
-                                <li><a class="dropdown-item" href="{{ route('rentals.index') }}">Alquileres</a></li>
-                                <li><a class="dropdown-item" href="{{ route('staffs.index') }}">Personal</a></li>
-                                <li><a class="dropdown-item" href="{{ route('stores.index') }}">Tiendas</a></li>
-                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('addresses.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-map-marker-alt"></i>
+                                <p>Direcciones</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('categories.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-tags"></i>
+                                <p>Categorías</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('cities.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-city"></i>
+                                <p>Ciudades</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('countries.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-globe"></i>
+                                <p>Países</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('customers.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Clientes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('films.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-film"></i>
+                                <p>Películas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('film-actors.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-friends"></i>
+                                <p>Actores de Películas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('film-categories.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>Categorías de Películas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('film-texts.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>Textos de Películas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('inventories.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-boxes"></i>
+                                <p>Inventario</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('languages.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-language"></i>
+                                <p>Idiomas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('payments.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-credit-card"></i>
+                                <p>Pagos</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('rentals.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-handshake"></i>
+                                <p>Alquileres</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('staffs.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-id-badge"></i>
+                                <p>Personal</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('stores.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-store"></i>
+                                <p>Tiendas</p>
+                            </a>
                         </li>
                     </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-12">
+                            <h1 class="m-0">Sakila Admin</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
+            <!-- /.content-header -->
 
-        @yield('content')
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <strong>Sakila Admin - Laravel</strong>
+        </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 </body>
 </html>
