@@ -10,22 +10,36 @@ class FilmActor extends Model
     use HasFactory;
 
     protected $table = 'film_actor';
-    public $incrementing = false; // Indica que no hay una clave primaria autoincremental
-    protected $primaryKey = null; // Indica que no hay una clave primaria única
+    public $incrementing = false; 
+    protected $primaryKey = ['film_id', 'actor_id']; // Define composite keys
     public $timestamps = false;
 
     protected $fillable = [
         'film_id',
         'actor_id',
+        'last_update'
     ];
 
-    // Relación con el modelo Film
+    // This is needed for composite keys
+    public function getRouteKeyName()
+    {
+        return 'film_id'; // Choose one of the keys for route binding
+    }
+    
+    // Custom method to find by composite key
+    public static function findByCompositeKey($filmId, $actorId)
+    {
+        return static::where('film_id', $filmId)
+                     ->where('actor_id', $actorId)
+                     ->first();
+    }
+
+    // Relationships remain the same
     public function film()
     {
         return $this->belongsTo(Film::class, 'film_id', 'film_id');
     }
 
-    // Relación con el modelo Actor
     public function actor()
     {
         return $this->belongsTo(Actor::class, 'actor_id', 'actor_id');

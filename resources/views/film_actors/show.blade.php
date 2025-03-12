@@ -36,8 +36,8 @@
                     </div>
                     
                     <div class="form-group text-right">
-                        <a class="btn btn-primary" href="{{ route('film_actors.edit', ['film_actor' => $filmActor->actor_id . '-' . $filmActor->film_id]) }}">Editar</a>
-                        <a class="btn btn-secondary" href="{{ route('film_actors.index') }}">Volver</a>
+                    <a class="btn btn-primary" href="{{ route('film-actors.edit', $filmActor->actor_id . '-' . $filmActor->film_id) }}">Editar</a>
+<a class="btn btn-secondary" href="{{ route('film-actors.index') }}">Volver</a>
                     </div>
                 </div>
             </div>

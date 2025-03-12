@@ -37,9 +37,9 @@
                                 <td>{{ $filmActor->actor->first_name }} {{ $filmActor->actor->last_name }}</td>
                                 <td>{{ $filmActor->last_update }}</td>
                                 <td>
-                                    <form action="{{ route('film-actors.destroy', ['film_actor' => $filmActor->actor_id . '-' . $filmActor->film_id]) }}" method="POST">
-                                        <a class="btn btn-info btn-sm" href="{{ route('film-actors.show', ['film_actor' => $filmActor->actor_id . '-' . $filmActor->film_id]) }}">Ver</a>
-                                        <a class="btn btn-primary btn-sm" href="{{ route('film-actors.edit', ['film_actor' => $filmActor->actor_id . '-' . $filmActor->film_id]) }}">Editar</a>
+                                <form action="{{ route('film-actors.destroy', ['film_actor' => $filmActor->actor_id . '-' . $filmActor->film_id]) }}" method="POST">
+    <a class="btn btn-info btn-sm" href="{{ route('film-actors.show', ['film_actor' => $filmActor->actor_id . '-' . $filmActor->film_id]) }}">Ver</a>
+    <a class="btn btn-primary btn-sm" href="{{ route('film-actors.edit', ['film_actor' => $filmActor->actor_id . '-' . $filmActor->film_id]) }}">Editar</a>
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar esta asignación?')">Eliminar</button>
