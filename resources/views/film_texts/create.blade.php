@@ -20,7 +20,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('film-texts.store') }}" method="POST">
+                    <form action="{{ route('film_texts.store') }}" method="POST">
                         @csrf
 
                         <div class="form-group">
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="form-group text-right">
-                            <a class="btn btn-secondary" href="{{ route('film-texts.index') }}">Cancelar</a>
+                            <a class="btn btn-secondary" href="{{ route('film_texts.index') }}">Cancelar</a>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>

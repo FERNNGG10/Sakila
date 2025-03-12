@@ -103,7 +103,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('film-texts.index') }}" class="nav-link">
+                            <a href="{{ route('film_texts.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-file-alt"></i>
                                 <p>Textos de Películas</p>
                             </a>
