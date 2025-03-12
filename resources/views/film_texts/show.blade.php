@@ -25,8 +25,8 @@
                     </div>
 
                     <div class="form-group text-right">
-                        <a class="btn btn-primary" href="{{ route('film-texts.edit', $filmText->film_id) }}">Editar</a>
-                        <a class="btn btn-secondary" href="{{ route('film-texts.index') }}">Volver</a>
+                        <a class="btn btn-primary" href="{{ route('film_texts.edit', $filmText->film_id) }}">Editar</a>
+                        <a class="btn btn-secondary" href="{{ route('film_texts.index') }}">Volver</a>
                     </div>
                 </div>
             </div>

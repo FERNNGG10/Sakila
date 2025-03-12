@@ -30,7 +30,7 @@ use App\Http\Controllers\StoreController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('actors.index');
 });
 
 Route::resource('actors', ActorController::class);
@@ -42,7 +42,7 @@ Route::resource('customers', CustomerController::class);
 Route::resource('films', FilmController::class);
 Route::resource('film-actors', FilmActorController::class);
 Route::resource('film-categories', FilmCategoryController::class);
-Route::resource('film-texts', FilmTextController::class);
+Route::resource('film_texts', FilmTextController::class);
 Route::resource('inventories', InventoryController::class);
 Route::resource('languages', LanguageController::class);
 Route::resource('payments', PaymentController::class);
