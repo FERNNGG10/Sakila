@@ -44,16 +44,22 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $data = $request->all();
+        // Convertir el array a una cadena separada por comas
+        if (isset($data['special_features']) && is_array($data['special_features'])) {
+            $data['special_features'] = implode(',', $data['special_features']);
+        }
+
+        $validator = Validator::make($data, [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'release_year' => 'nullable|integer|min:1900|max:' . date('Y'),
             'language_id' => 'required|exists:language,language_id',
             'original_language_id' => 'nullable|exists:language,language_id',
             'rental_duration' => 'required|integer|min:1',
-            'rental_rate' => 'required|numeric|min:0',
+            'rental_rate' => 'required|numeric|min:0|max:99.99',
             'length' => 'nullable|integer|min:1',
-            'replacement_cost' => 'required|numeric|min:0',
+            'replacement_cost' => 'required|numeric|min:0|max:999.99',
             'rating' => 'nullable|string|in:G,PG,PG-13,R,NC-17',
             'special_features' => 'nullable|string',
             'categories' => 'array',
@@ -66,7 +72,7 @@ class FilmController extends Controller
                 ->withInput();
         }
 
-        $film = Film::create($request->except(['categories', 'actors']));
+        $film = Film::create(collect($data)->except(['categories', 'actors'])->toArray());
 
         if ($request->has('categories')) {
             $film->categories()->attach($request->categories);
@@ -105,7 +111,7 @@ class FilmController extends Controller
         $actors = Actor::all();
         $selectedCategories = $film->categories->pluck('category_id')->toArray();
         $selectedActors = $film->actors->pluck('actor_id')->toArray();
-        
+
         return view('films.edit', compact('film', 'languages', 'categories', 'actors', 'selectedCategories', 'selectedActors'));
     }
 
@@ -118,7 +124,13 @@ class FilmController extends Controller
      */
     public function update(Request $request, Film $film)
     {
-        $validator = Validator::make($request->all(), [
+        $data = $request->all();
+        // Convertir el array a una cadena separada por comas
+        if (isset($data['special_features']) && is_array($data['special_features'])) {
+            $data['special_features'] = implode(',', $data['special_features']);
+        }
+
+        $validator = Validator::make($data, [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'release_year' => 'nullable|integer|min:1900|max:' . date('Y'),
@@ -140,14 +152,14 @@ class FilmController extends Controller
                 ->withInput();
         }
 
-        $film->update($request->except(['categories', 'actors']));
-        
+        $film = Film::create(collect($data)->except(['categories', 'actors'])->toArray());
+
         if ($request->has('categories')) {
             $film->categories()->sync($request->categories);
         } else {
             $film->categories()->detach();
         }
-        
+
         if ($request->has('actors')) {
             $film->actors()->sync($request->actors);
         } else {
@@ -164,17 +176,17 @@ class FilmController extends Controller
      * @param  \App\Models\Film  $film
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Film $film)
-    {
-        try {
-            $film->categories()->detach();
-            $film->actors()->detach();
-            $film->delete();
-            return redirect()->route('films.index')
-                ->with('success', 'Película eliminada exitosamente');
-        } catch (\Exception $e) {
-            return redirect()->route('films.index')
-                ->with('error', 'No se puede eliminar la película porque tiene registros relacionados');
-        }
-    }
+    // public function destroy(Film $film)
+    // {
+    //     try {
+    //         $film->categories()->detach();
+    //         $film->actors()->detach();
+    //         $film->delete();
+    //         return redirect()->route('films.index')
+    //             ->with('success', 'Película eliminada exitosamente');
+    //     } catch (\Exception $e) {
+    //         return redirect()->route('films.index')
+    //             ->with('error', 'No se puede eliminar la película porque tiene registros relacionados');
+    //     }
+    // }
 }

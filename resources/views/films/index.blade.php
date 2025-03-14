@@ -58,11 +58,11 @@
                                         <a class="btn btn-primary btn-sm" href="{{ route('films.edit', $film->film_id) }}">
                                             <i class="fas fa-edit"></i> Editar
                                         </a>
-                                        @csrf
+                                        {{-- @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar esta película?')">
                                             <i class="fas fa-trash"></i> Eliminar
-                                        </button>
+                                        </button> --}}
                                     </form>
                                 </td>
                             </tr>

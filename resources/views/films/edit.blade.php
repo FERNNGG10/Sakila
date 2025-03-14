@@ -55,7 +55,7 @@
 
                         <div class="form-group">
                             <label for="rental_rate">Tarifa de Alquiler:</label>
-                            <input type="number" step="0.01" name="rental_rate" class="form-control" value="{{ old('rental_rate', $film->rental_rate) }}" placeholder="Tarifa">
+                            <input type="number" step="0.01" min="0" max="99.99" name="rental_rate" class="form-control" value="{{ old('rental_rate', $film->rental_rate) }}" placeholder="Tarifa">
                         </div>
 
                         <div class="form-group">
@@ -65,7 +65,7 @@
 
                         <div class="form-group">
                             <label for="replacement_cost">Costo de Reemplazo:</label>
-                            <input type="number" step="0.01" name="replacement_cost" class="form-control" value="{{ old('replacement_cost', $film->replacement_cost) }}" placeholder="Costo">
+                            <input type="number" step="0.01" min="0" max="999.99" name="replacement_cost" class="form-control" value="{{ old('replacement_cost', $film->replacement_cost) }}" placeholder="Costo">
                         </div>
 
                         <div class="form-group">
@@ -80,12 +80,28 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="special_features">Características Especiales:</label>
-                            <select name="special_features[]" class="form-control" multiple>
-                                @foreach(['Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes'] as $feature)
-                                    <option value="{{ $feature }}" {{ in_array($feature, $film->special_features) ? 'selected' : '' }}>{{ $feature }}</option>
-                                @endforeach
-                            </select>
+                            <label>Características Especiales:</label>
+                            @php
+                                $specialFeatures = $film->special_features ? explode(',', $film->special_features) : [];
+                            @endphp
+                            <div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="special_features[]" class="form-check-input" value="Trailers" id="trailers" {{ in_array('Trailers', $specialFeatures) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="trailers">Trailers</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="special_features[]" class="form-check-input" value="Commentaries" id="commentaries" {{ in_array('Commentaries', $specialFeatures) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="commentaries">Comentarios</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="special_features[]" class="form-check-input" value="Deleted Scenes" id="deleted-scenes" {{ in_array('Deleted Scenes', $specialFeatures) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="deleted-scenes">Escenas Eliminadas</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="special_features[]" class="form-check-input" value="Behind the Scenes" id="behind-scenes" {{ in_array('Behind the Scenes', $specialFeatures) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="behind-scenes">Detrás de Escenas</label>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group text-right">

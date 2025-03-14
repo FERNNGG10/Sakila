@@ -61,11 +61,7 @@
 
                     <div class="form-group">
                         <strong>Características Especiales:</strong>
-                        <ul>
-                            @foreach($film->special_features as $feature)
-                                <li>{{ $feature }}</li>
-                            @endforeach
-                        </ul>
+                       {{ $film->special_features }}
                     </div>
 
                     <div class="form-group">
