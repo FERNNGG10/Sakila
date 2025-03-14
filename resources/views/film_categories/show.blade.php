@@ -36,7 +36,7 @@
                     </div>
                     
                     <div class="form-group text-right">
-                        <a class="btn btn-primary" href="{{ route('film-categories.edit', ['film' => $filmCategory->film_id, 'category' => $filmCategory->category_id]) }}">Editar</a>
+                        <a class="btn btn-primary " href="{{ route('film-categories.edit', ['film_category' => $filmCategory->film_id . '-' . $filmCategory->category_id]) }}"> Editar</a>
                         <a class="btn btn-secondary" href="{{ route('film-categories.index') }}">Volver</a>
                     </div>
                 </div>

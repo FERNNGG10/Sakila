@@ -80,17 +80,17 @@ class FilmCategoryController extends Controller
         return redirect()->route('film-categories.index')->with('success', 'Relación película-categoría actualizada correctamente');
     }
 
-    public function destroy($film_category)
-    {
-        // Separar film_id y category_id del parámetro
-        [$film_id, $category_id] = explode('-', $film_category);
+    // public function destroy($film_category)
+    // {
+    //     // Separar film_id y category_id del parámetro
+    //     [$film_id, $category_id] = explode('-', $film_category);
 
-        // Buscar el registro
-        $filmCategory = FilmCategory::where('film_id', $film_id)
-            ->where('category_id', $category_id)
-            ->firstOrFail();
+    //     // Buscar el registro
+    //     $filmCategory = FilmCategory::where('film_id', $film_id)
+    //         ->where('category_id', $category_id)
+    //         ->firstOrFail();
 
-        $filmCategory->delete();
-        return redirect()->route('film-categories.index')->with('success', 'Relación película-categoría eliminada correctamente');
-    }
+    //     $filmCategory->delete();
+    //     return redirect()->route('film-categories.index')->with('success', 'Relación película-categoría eliminada correctamente');
+    // }
 }
