@@ -50,7 +50,7 @@
                         </div>
                         
                         <div class="form-group text-right">
-                            <a class="btn btn-secondary" href="{{ route('film_actors.index') }}">Cancelar</a>
+                            <a class="btn btn-secondary" href="{{ route('film-actors.index') }}">Cancelar</a>
                             <button type="submit" class="btn btn-primary">Actualizar</button>
                         </div>
                     </form>

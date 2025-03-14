@@ -61,22 +61,22 @@ class FilmActorController extends Controller
         return view('film_actors.edit', compact('filmActor', 'films', 'actors'));
     }
     
-    public function update(Request $request, $id)
-    {
-        list($actorId, $filmId) = explode('-', $id);
+    // public function update(Request $request, $id)
+    // {
+    //     list($actorId, $filmId) = explode('-', $id);
         
-        $filmActor = FilmActor::where('actor_id', $actorId)
-                           ->where('film_id', $filmId)
-                           ->firstOrFail();
+    //     $filmActor = FilmActor::where('actor_id', $actorId)
+    //                        ->where('film_id', $filmId)
+    //                        ->firstOrFail();
         
-        $request->validate([
-            'film_id' => 'required|exists:film,film_id',
-            'actor_id' => 'required|exists:actor,actor_id',
-        ]);
+    //     $request->validate([
+    //         'film_id' => 'required|exists:film,film_id',
+    //         'actor_id' => 'required|exists:actor,actor_id',
+    //     ]);
     
-        $filmActor->update($request->all());
-        return redirect()->route('film_actors.index')->with('success', 'Relación película-actor actualizada correctamente');
-    }
+    //     $filmActor->update($request->all());
+    //     return redirect()->route('film_actors.index')->with('success', 'Relación película-actor actualizada correctamente');
+    // }
     
     public function destroy($id)
     {

@@ -47,14 +47,14 @@
                                         <a class="btn btn-info btn-sm" href="{{ route('film-actors.show', ['film_actor' => $filmActor->actor_id . '-' . $filmActor->film_id]) }}">
                                             <i class="fas fa-eye"></i> Ver
                                         </a>
-                                        <a class="btn btn-primary btn-sm" href="{{ route('film-actors.edit', ['film_actor' => $filmActor->actor_id . '-' . $filmActor->film_id]) }}">
+                                        {{-- <a class="btn btn-primary btn-sm" href="{{ route('film-actors.edit', ['film_actor' => $filmActor->actor_id . '-' . $filmActor->film_id]) }}">
                                             <i class="fas fa-edit"></i> Editar
-                                        </a>
-                                        @csrf
+                                        </a> --}}
+                                        {{-- @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar esta asignación?')">
                                             <i class="fas fa-trash"></i> Eliminar
-                                        </button>
+                                        </button> --}}
                                     </form>
                                 </td>
                             </tr>
