@@ -82,15 +82,15 @@ class CustomerController extends Controller
             ->with('success', 'Cliente actualizado exitosamente');
     }
 
-    public function destroy(Customer $customer)
-    {
-        try {
-            $customer->delete();
-            return redirect()->route('customers.index')
-                ->with('success', 'Cliente eliminado exitosamente');
-        } catch (\Exception $e) {
-            return redirect()->route('customers.index')
-                ->with('error', 'No se puede eliminar el cliente porque tiene registros relacionados');
-        }
-    }
+    // public function destroy(Customer $customer)
+    // {
+    //     try {
+    //         $customer->delete();
+    //         return redirect()->route('customers.index')
+    //             ->with('success', 'Cliente eliminado exitosamente');
+    //     } catch (\Exception $e) {
+    //         return redirect()->route('customers.index')
+    //             ->with('error', 'No se puede eliminar el cliente porque tiene registros relacionados');
+    //     }
+    // }
 }

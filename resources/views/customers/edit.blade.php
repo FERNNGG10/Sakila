@@ -52,4 +52,27 @@
                             <label for="address_id">Dirección:</label>
                             <select name="address_id" class="form-control">
                                 @foreach($addresses as $address)
-                                    <option value="{{ $address->address_id }}" {{ $customer->address_id == $address->address_id ? 'selected' : '' }}>{{ $address->
+                                    <option value="{{ $address->address_id }}" {{ $customer->address_id == $address->address_id ? 'selected' : '' }}>{{ $address->address }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="active">Activo:</label>
+                            <select name="active" class="form-control">
+                                <option value="1" {{ $customer->active == 1 ? 'selected' : '' }}>Sí</option>
+                                <option value="0" {{ $customer->active == 0 ? 'selected' : '' }}>No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right">
+                            <a class="btn btn-secondary" href="{{ route('customers.index') }}">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

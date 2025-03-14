@@ -38,4 +38,8 @@ class Rental extends Model
     {
         return $this->hasMany(Payment::class, 'rental_id');
     }
+    public function film()
+    {
+        return $this->belongsTo(Film::class, 'film_id');
+    }
 }
