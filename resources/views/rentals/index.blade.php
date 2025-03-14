@@ -7,21 +7,27 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="float-left">Alquileres</h3>
-                    <a href="{{ route('rentals.create') }}" class="btn btn-primary float-right">Nuevo Alquiler</a>
+                    <a href="{{ route('rentals.create') }}" class="btn btn-primary float-right">
+                        <i class="fas fa-plus"></i> Nuevo Alquiler
+                    </a>
                 </div>
                 <div class="card-body">
                     @if(session('success'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <h5><i class="icon fas fa-check"></i> ¡Éxito!</h5>
                             {{ session('success') }}
                         </div>
                     @endif
                     @if(session('error'))
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <h5><i class="icon fas fa-ban"></i> Error</h5>
                             {{ session('error') }}
                         </div>
                     @endif
 
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -45,18 +51,28 @@
                                 <td>{{ $rental->staff->first_name }} {{ $rental->staff->last_name }}</td>
                                 <td>{{ $rental->last_update }}</td>
                                 <td>
-                                    <form action="{{ route('rentals.destroy', $rental->rental_id) }}" method="POST">
-                                        <a class="btn btn-info btn-sm" href="{{ route('rentals.show', $rental->rental_id) }}">Ver</a>
-                                        <a class="btn btn-primary btn-sm" href="{{ route('rentals.edit', $rental->rental_id) }}">Editar</a>
+                                    <form action="{{ route('rentals.destroy', $rental->rental_id) }}" method="POST" class="d-inline">
+                                        <a class="btn btn-info btn-sm" href="{{ route('rentals.show', $rental->rental_id) }}">
+                                            <i class="fas fa-eye"></i> Ver
+                                        </a>
+                                        <a class="btn btn-primary btn-sm" href="{{ route('rentals.edit', $rental->rental_id) }}">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </a>
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este alquiler?')">Eliminar</button>
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este alquiler?')">
+                                            <i class="fas fa-trash"></i> Eliminar
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    
+                    <div class="pagination pagination-sm m-0 float-right">
+                        {{ $rentals->links() }}
+                    </div>
                 </div>
             </div>
         </div>
