@@ -56,13 +56,13 @@ class InventoryController extends Controller
         return redirect()->route('inventories.index')->with('success', 'Inventario actualizado correctamente');
     }
 
-    public function destroy(Inventory $inventory)
-    {
-        try {
-            $inventory->delete();
-            return redirect()->route('inventories.index')->with('success', 'Inventario eliminado correctamente');
-        } catch (\Exception $e) {
-            return redirect()->route('inventories.index')->with('error', 'No se puede eliminar este inventario porque tiene registros asociados');
-        }
-    }
+    // public function destroy(Inventory $inventory)
+    // {
+    //     try {
+    //         $inventory->delete();
+    //         return redirect()->route('inventories.index')->with('success', 'Inventario eliminado correctamente');
+    //     } catch (\Exception $e) {
+    //         return redirect()->route('inventories.index')->with('error', 'No se puede eliminar este inventario porque tiene registros asociados');
+    //     }
+    // }
 }

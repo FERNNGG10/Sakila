@@ -54,7 +54,7 @@ class StaffController extends Controller
 
         Staff::create($data);
 
-        return redirect()->route('staff.index')
+        return redirect()->route('staffs.index')
             ->with('success', 'Empleado creado exitosamente.');
     }
 
@@ -105,7 +105,7 @@ class StaffController extends Controller
 
         $staff->update($data);
 
-        return redirect()->route('staff.index')
+        return redirect()->route('staffs.index')
             ->with('success', 'Empleado actualizado exitosamente');
     }
 
@@ -113,10 +113,10 @@ class StaffController extends Controller
     {
         try {
             $staff->delete();
-            return redirect()->route('staff.index')
+            return redirect()->route('staffs.index')
                 ->with('success', 'Empleado eliminado exitosamente');
         } catch (\Exception $e) {
-            return redirect()->route('staff.index')
+            return redirect()->route('staffs.index')
                 ->with('error', 'No se puede eliminar el empleado porque tiene registros relacionados');
         }
     }

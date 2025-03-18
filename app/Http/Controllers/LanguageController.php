@@ -66,15 +66,15 @@ class LanguageController extends Controller
             ->with('success', 'Idioma actualizado exitosamente');
     }
 
-    public function destroy(Language $language)
-    {
-        try {
-            $language->delete();
-            return redirect()->route('languages.index')
-                ->with('success', 'Idioma eliminado exitosamente');
-        } catch (\Exception $e) {
-            return redirect()->route('languages.index')
-                ->with('error', 'No se puede eliminar el idioma porque tiene películas asociadas');
-        }
-    }
+    // public function destroy(Language $language)
+    // {
+    //     try {
+    //         $language->delete();
+    //         return redirect()->route('languages.index')
+    //             ->with('success', 'Idioma eliminado exitosamente');
+    //     } catch (\Exception $e) {
+    //         return redirect()->route('languages.index')
+    //             ->with('error', 'No se puede eliminar el idioma porque tiene películas asociadas');
+    //     }
+    // }
 }

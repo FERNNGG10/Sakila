@@ -26,7 +26,7 @@
                         <div class="form-group">
                             <label for="manager_staff_id">Gerente:</label>
                             <select name="manager_staff_id" class="form-control">
-                                @foreach($staffs as $staff)
+                                @foreach($staff as $staff)
                                     <option value="{{ $staff->staff_id }}">{{ $staff->first_name }} {{ $staff->last_name }}</option>
                                 @endforeach
                             </select>

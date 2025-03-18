@@ -50,11 +50,11 @@
                                         <a class="btn btn-primary btn-sm" href="{{ route('languages.edit', $language->language_id) }}">
                                             <i class="fas fa-edit"></i> Editar
                                         </a>
-                                        @csrf
+                                        {{-- @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este idioma?')">
                                             <i class="fas fa-trash"></i> Eliminar
-                                        </button>
+                                        </button> --}}
                                     </form>
                                 </td>
                             </tr>

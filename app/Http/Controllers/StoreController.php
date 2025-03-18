@@ -23,21 +23,31 @@ class StoreController extends Controller
         return view('stores.create', compact('staff', 'addresses'));
     }
 
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'manager_staff_id' => 'required|exists:staff,staff_id',
+            'manager_staff_id' => [
+                'required',
+                'exists:staff,staff_id',
+                function ($attribute, $value, $fail) {
+                    if (Store::where('manager_staff_id', $value)->exists()) {
+                        $staff = Staff::find($value);
+                        $fail("El gerente {$staff->first_name} {$staff->last_name} ya está asignado a otra tienda.");
+                    }
+                },
+            ],
             'address_id' => 'required|exists:address,address_id',
         ]);
-
+    
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-
+    
         Store::create($request->all());
-
+    
         return redirect()->route('stores.index')
             ->with('success', 'Tienda creada exitosamente.');
     }
@@ -58,7 +68,16 @@ class StoreController extends Controller
     public function update(Request $request, Store $store)
     {
         $validator = Validator::make($request->all(), [
-            'manager_staff_id' => 'required|exists:staff,staff_id',
+            'manager_staff_id' => [
+                'required',
+                'exists:staff,staff_id',
+                function ($attribute, $value, $fail) {
+                    if (Store::where('manager_staff_id', $value)->exists()) {
+                        $staff = Staff::find($value);
+                        $fail("El gerente {$staff->first_name} {$staff->last_name} ya está asignado a otra tienda.");
+                    }
+                },  
+            ],
             'address_id' => 'required|exists:address,address_id',
         ]);
 
@@ -74,15 +93,15 @@ class StoreController extends Controller
             ->with('success', 'Tienda actualizada exitosamente');
     }
 
-    public function destroy(Store $store)
-    {
-        try {
-            $store->delete();
-            return redirect()->route('stores.index')
-                ->with('success', 'Tienda eliminada exitosamente');
-        } catch (\Exception $e) {
-            return redirect()->route('stores.index')
-                ->with('error', 'No se puede eliminar la tienda porque tiene registros relacionados');
-        }
-    }
+    // public function destroy(Store $store)
+    // {
+    //     try {
+    //         $store->delete();
+    //         return redirect()->route('stores.index')
+    //             ->with('success', 'Tienda eliminada exitosamente');
+    //     } catch (\Exception $e) {
+    //         return redirect()->route('stores.index')
+    //             ->with('error', 'No se puede eliminar la tienda porque tiene registros relacionados');
+    //     }
+    // }
 }

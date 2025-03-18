@@ -27,7 +27,7 @@
                         <div class="form-group">
                             <label for="manager_staff_id">Gerente:</label>
                             <select name="manager_staff_id" class="form-control">
-                                @foreach($staffs as $staff)
+                                @foreach($staff as $staff)
                                     <option value="{{ $staff->staff_id }}" {{ $store->manager_staff_id == $staff->staff_id ? 'selected' : '' }}>{{ $staff->first_name }} {{ $staff->last_name }}</option>
                                 @endforeach
                             </select>
