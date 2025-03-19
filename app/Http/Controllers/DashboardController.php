@@ -22,8 +22,8 @@ class DashboardController extends Controller
 
         // Datos para la gráfica de películas por año
         $filmsPerYear = Film::select(DB::raw('YEAR(release_year) as year'), DB::raw('count(*) as count'))
-            ->groupBy('year')
-            ->orderBy('year')
+            ->groupBy(DB::raw('YEAR(release_year)'))
+            ->orderBy(DB::raw('YEAR(release_year)'))
             ->get();
         $years = $filmsPerYear->pluck('year');
         $filmsPerYear = $filmsPerYear->pluck('count');
