@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Actor;
 use App\Models\Film;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -14,6 +15,19 @@ class DashboardController extends Controller
         $filmsCount = Film::count();
         $categoriesCount = Category::count();
 
-        return view('dashboard', compact('actorsCount', 'filmsCount', 'categoriesCount'));
+        // Datos para la gráfica de distribución de películas por categoría
+        $categories = Category::withCount('films')->get();
+        $categoryNames = $categories->pluck('name');
+        $filmsPerCategory = $categories->pluck('films_count');
+
+        // Datos para la gráfica de películas por año
+        $filmsPerYear = Film::select(DB::raw('YEAR(release_year) as year'), DB::raw('count(*) as count'))
+            ->groupBy('year')
+            ->orderBy('year')
+            ->get();
+        $years = $filmsPerYear->pluck('year');
+        $filmsPerYear = $filmsPerYear->pluck('count');
+
+        return view('dashboard', compact('actorsCount', 'filmsCount', 'categoriesCount', 'categoryNames', 'filmsPerCategory', 'years', 'filmsPerYear'));
     }
 }

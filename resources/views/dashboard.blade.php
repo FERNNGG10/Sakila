@@ -61,7 +61,99 @@
             <!-- Agrega más cajas pequeñas según tus necesidades -->
         </div>
         <!-- /.row -->
+
+        <!-- Gráficas -->
+        <div class="row">
+            <div class="col-md-6">
+                <!-- PIE CHART -->
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title">Distribución de Películas por Categoría</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="pieChart" data-category-names="{{ json_encode($categoryNames) }}" data-films-per-category="{{ json_encode($filmsPerCategory) }}" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+
+            <div class="col-md-6">
+                <!-- BAR CHART -->
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Películas por Año</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="barChart" data-years="{{ json_encode($years) }}" data-films-per-year="{{ json_encode($filmsPerYear) }}" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
 <!-- /.content -->
+@endsection
+
+@section('scripts')
+<script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
+<script>
+    $(function () {
+        // Obtener datos de los atributos data-*
+        var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+        var categoryNames = JSON.parse($('#pieChart').attr('data-category-names'));
+        var filmsPerCategory = JSON.parse($('#pieChart').attr('data-films-per-category'));
+
+        console.log('categoryNames:', categoryNames);
+        console.log('filmsPerCategory:', filmsPerCategory);
+
+        var pieData = {
+            labels: categoryNames,
+            datasets: [{
+                data: filmsPerCategory,
+                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+            }]
+        };
+        var pieOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+        };
+        new Chart(pieChartCanvas, {
+            type: 'pie',
+            data: pieData,
+            options: pieOptions
+        });
+
+        // Obtener datos de los atributos data-*
+        var barChartCanvas = $('#barChart').get(0).getContext('2d');
+        var years = JSON.parse($('#barChart').attr('data-years'));
+        var filmsPerYear = JSON.parse($('#barChart').attr('data-films-per-year'));
+
+        console.log('years:', years);
+        console.log('filmsPerYear:', filmsPerYear);
+
+        var barData = {
+            labels: years,
+            datasets: [{
+                label: 'Películas',
+                backgroundColor: '#00a65a',
+                borderColor: '#00a65a',
+                data: filmsPerYear
+            }]
+        };
+        var barOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            datasetFill: false
+        };
+        new Chart(barChartCanvas, {
+            type: 'bar',
+            data: barData,
+            options: barOptions
+        });
+    });
+</script>
 @endsection
