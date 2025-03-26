@@ -18,6 +18,8 @@ use App\Http\Controllers\RentalController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,16 @@ use App\Http\Controllers\DashboardController;
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
+
+Route::get('/register', [AuthController::class, 'registerindex'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.register');
+Route::get('/login', [AuthController::class, 'index'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.login');
+Route::get('/factor/{user}', [AuthController::class, 'factor'])->name('factor');
+Route::post('/twofa/{user}', [AuthController::class, 'twofa'])->name('twofa');
+Route::post('/resend-code/{user}', [AuthController::class, 'resendCode'])->name('resendCode');
+
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::resource('actors', ActorController::class);
@@ -51,3 +63,4 @@ Route::resource('payments', PaymentController::class);
 Route::resource('rentals', RentalController::class);
 Route::resource('staffs', StaffController::class);
 Route::resource('stores', StoreController::class);
+Route::resource('users', UserController::class);
