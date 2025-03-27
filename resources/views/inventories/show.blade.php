@@ -30,7 +30,9 @@
                     </div>
 
                     <div class="form-group text-right">
+                        @if(auth()->user()->role->name !== 'invitado')
                         <a class="btn btn-primary" href="{{ route('inventories.edit', $inventory->inventory_id) }}">Editar</a>
+                        @endif
                         <a class="btn btn-secondary" href="{{ route('inventories.index') }}">Volver</a>
                     </div>
                 </div>

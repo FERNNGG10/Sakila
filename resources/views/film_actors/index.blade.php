@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="float-left">Asignaciones de Actores a Películas</h3>
+                    @if(auth()->user()->role->name !== 'invitado')
                     <a href="{{ route('film-actors.create') }}" class="btn btn-primary float-right">
                         <i class="fas fa-plus"></i> Nueva Asignación
                     </a>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if(session('success'))

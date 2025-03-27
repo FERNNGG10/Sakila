@@ -25,7 +25,9 @@
                     </div>
 
                     <div class="form-group text-right">
+                        @if(auth()->user()->role->name !== 'invitado')
                         <a class="btn btn-primary" href="{{ route('languages.edit', $language->language_id) }}">Editar</a>
+                        @endif
                         <a class="btn btn-secondary" href="{{ route('languages.index') }}">Volver</a>
                     </div>
                 </div>

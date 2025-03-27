@@ -1,4 +1,4 @@
-<!-- resources/views/countries/index.blade.php -->
+{{-- filepath: c:\Users\panch\Documents\Proyectos\Practicas Elias\Sakila\resources\views\countries\index.blade.php --}}
 @extends('layouts.app')
 
 @section('content')
@@ -8,9 +8,12 @@
             <div class="card-header">
                 <h3 class="card-title">Países</h3>
                 <div class="card-tools">
-                    <a href="{{ route('countries.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus"></i> Nuevo País
-                    </a>
+                    {{-- Mostrar el botón "Nuevo País" solo si el usuario no es invitado --}}
+                    @if(auth()->user()->role->name !== 'invitado')
+                        <a href="{{ route('countries.create') }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus"></i> Nuevo País
+                        </a>
+                    @endif
                 </div>
             </div>
             <!-- /.card-header -->
@@ -50,14 +53,17 @@
                                     <a class="btn btn-info btn-xs" href="{{ route('countries.show', $country->country_id) }}">
                                         <i class="fas fa-eye"></i> Ver
                                     </a>
-                                    <a class="btn btn-primary btn-xs" href="{{ route('countries.edit', $country->country_id) }}">
-                                        <i class="fas fa-edit"></i> Editar
-                                    </a>
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('¿Está seguro de eliminar este país?')">
-                                        <i class="fas fa-trash"></i> Eliminar
-                                    </button>
+                                    {{-- Mostrar los botones "Editar" y "Eliminar" solo si el usuario no es invitado --}}
+                                    @if(auth()->user()->role->name !== 'invitado')
+                                        <a class="btn btn-primary btn-xs" href="{{ route('countries.edit', $country->country_id) }}">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('¿Está seguro de eliminar este país?')">
+                                            <i class="fas fa-trash"></i> Eliminar
+                                        </button>
+                                    @endif
                                 </form>
                             </td>
                         </tr>

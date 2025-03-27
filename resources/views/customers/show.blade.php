@@ -50,7 +50,9 @@
                     </div>
 
                     <div class="form-group text-right">
+                        @if(auth()->user()->role->name !== 'invitado')
                         <a class="btn btn-primary" href="{{ route('customers.edit', $customer->customer_id) }}">Editar</a>
+                        @endif
                         <a class="btn btn-secondary" href="{{ route('customers.index') }}">Volver</a>
                     </div>
                 </div>

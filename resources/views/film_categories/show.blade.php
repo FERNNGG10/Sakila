@@ -36,7 +36,9 @@
                     </div>
                     
                     <div class="form-group text-right">
+                        @if(auth()->user()->role->name !== 'invitado')
                         <a class="btn btn-primary " href="{{ route('film-categories.edit', ['film_category' => $filmCategory->film_id . '-' . $filmCategory->category_id]) }}"> Editar</a>
+                        @endif
                         <a class="btn btn-secondary" href="{{ route('film-categories.index') }}">Volver</a>
                     </div>
                 </div>

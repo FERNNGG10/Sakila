@@ -1,4 +1,4 @@
-<!-- resources/views/actors/index.blade.php -->
+{{-- filepath: c:\Users\panch\Documents\Proyectos\Practicas Elias\Sakila\resources\views\actors\index.blade.php --}}
 @extends('layouts.app')
 @section('content')
 <div class="row">
@@ -7,9 +7,12 @@
             <div class="card-header">
                 <h3 class="card-title">Actores</h3>
                 <div class="card-tools">
-                    <a href="{{ route('actors.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus"></i> Nuevo Actor
-                    </a>
+                    {{-- Mostrar el botón "Nuevo Actor" solo si el usuario no es invitado --}}
+                    @if(auth()->user()->role->name !== 'invitado')
+                        <a href="{{ route('actors.create') }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus"></i> Nuevo Actor
+                        </a>
+                    @endif
                 </div>
             </div>
             <!-- /.card-header -->
@@ -47,19 +50,22 @@
                             <td>{{ $actor->last_name }}</td>
                             <td>{{ $actor->last_update }}</td>
                             <td>
-                                <form action="{{ route('actors.destroy', $actor->actor_id) }}" method="POST" class="d-inline">
-                                    <a class="btn btn-info btn-xs" href="{{ route('actors.show', $actor->actor_id) }}">
-                                        <i class="fas fa-eye"></i> Ver
-                                    </a>
+                                <a class="btn btn-info btn-xs" href="{{ route('actors.show', $actor->actor_id) }}">
+                                    <i class="fas fa-eye"></i> Ver
+                                </a>
+                                {{-- Mostrar los botones "Editar" y "Eliminar" solo si el usuario no es invitado --}}
+                                @if(auth()->user()->role->name !== 'invitado')
                                     <a class="btn btn-primary btn-xs" href="{{ route('actors.edit', $actor->actor_id) }}">
                                         <i class="fas fa-edit"></i> Editar
                                     </a>
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('¿Está seguro de eliminar este actor?')">
-                                        <i class="fas fa-trash"></i> Eliminar
-                                    </button>
-                                </form>
+                                    <form action="{{ route('actors.destroy', $actor->actor_id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('¿Está seguro de eliminar este actor?')">
+                                            <i class="fas fa-trash"></i> Eliminar
+                                        </button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

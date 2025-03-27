@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="float-left">Películas</h3>
+                    @if(auth()->user()->role->name !== 'invitado')
                     <a href="{{ route('films.create') }}" class="btn btn-primary float-right">
                         <i class="fas fa-plus"></i> Nueva Película
                     </a>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -55,9 +57,11 @@
                                         <a class="btn btn-info btn-sm" href="{{ route('films.show', $film->film_id) }}">
                                             <i class="fas fa-eye"></i> Ver
                                         </a>
+                                        @if(auth()->user()->role->name !== 'invitado')
                                         <a class="btn btn-primary btn-sm" href="{{ route('films.edit', $film->film_id) }}">
                                             <i class="fas fa-edit"></i> Editar
                                         </a>
+                                        @endif
                                         {{-- @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar esta película?')">

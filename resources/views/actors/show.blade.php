@@ -42,7 +42,9 @@
                     </div>
                     
                     <div class="form-group text-right">
+                        @if(auth()->user()->role->name !== 'invitado')
                         <a class="btn btn-primary" href="{{ route('actors.edit', $actor->actor_id) }}">Editar</a>
+                        @endif
                         <a class="btn btn-secondary" href="{{ route('actors.index') }}">Volver</a>
                     </div>
                 </div>

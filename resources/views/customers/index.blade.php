@@ -1,3 +1,4 @@
+{{-- filepath: c:\Users\panch\Documents\Proyectos\Practicas Elias\Sakila\resources\views\customers\index.blade.php --}}
 @extends('layouts.app')
 
 @section('content')
@@ -7,9 +8,12 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="float-left">Clientes</h3>
-                    <a href="{{ route('customers.create') }}" class="btn btn-primary float-right">
-                        <i class="fas fa-plus"></i> Nuevo Cliente
-                    </a>
+                    {{-- Mostrar el botón "Nuevo Cliente" solo si el usuario no es invitado --}}
+                    @if(auth()->user()->role->name !== 'invitado')
+                        <a href="{{ route('customers.create') }}" class="btn btn-primary float-right">
+                            <i class="fas fa-plus"></i> Nuevo Cliente
+                        </a>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -55,14 +59,17 @@
                                         <a class="btn btn-info btn-sm" href="{{ route('customers.show', $customer->customer_id) }}">
                                             <i class="fas fa-eye"></i> Ver
                                         </a>
-                                        <a class="btn btn-primary btn-sm" href="{{ route('customers.edit', $customer->customer_id) }}">
-                                            <i class="fas fa-edit"></i> Editar
-                                        </a>
-                                        {{-- @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este cliente?')">
-                                            <i class="fas fa-trash"></i> Eliminar
-                                        </button> --}}
+                                        {{-- Mostrar los botones "Editar" y "Eliminar" solo si el usuario no es invitado --}}
+                                        @if(auth()->user()->role->name !== 'invitado')
+                                            <a class="btn btn-primary btn-sm" href="{{ route('customers.edit', $customer->customer_id) }}">
+                                                <i class="fas fa-edit"></i> Editar
+                                            </a>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este cliente?')">
+                                                <i class="fas fa-trash"></i> Eliminar
+                                            </button>
+                                        @endif
                                     </form>
                                 </td>
                             </tr>

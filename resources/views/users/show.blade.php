@@ -68,9 +68,11 @@
                                             <i class="fas fa-arrow-left"></i> Volver
                                         </a>
                                         <div>
+                                            @if(auth()->user()->role->name !== 'invitado')
                                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">
                                                 <i class="fas fa-edit"></i> Editar
                                             </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

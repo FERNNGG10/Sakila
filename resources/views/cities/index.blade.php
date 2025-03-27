@@ -1,4 +1,4 @@
-<!-- resources/views/cities/index.blade.php -->
+{{-- filepath: c:\Users\panch\Documents\Proyectos\Practicas Elias\Sakila\resources\views\cities\index.blade.php --}}
 @extends('layouts.app')
 
 @section('content')
@@ -8,9 +8,11 @@
             <div class="card-header">
                 <h3 class="card-title">Ciudades</h3>
                 <div class="card-tools">
-                    <a href="{{ route('cities.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus"></i> Nueva Ciudad
-                    </a>
+                    @if(auth()->user()->role->name !== 'invitado')
+                        <a href="{{ route('cities.create') }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus"></i> Nueva Ciudad
+                        </a>
+                    @endif
                 </div>
             </div>
             <!-- /.card-header -->
@@ -52,14 +54,16 @@
                                     <a class="btn btn-info btn-xs" href="{{ route('cities.show', $city->city_id) }}">
                                         <i class="fas fa-eye"></i> Ver
                                     </a>
-                                    <a class="btn btn-primary btn-xs" href="{{ route('cities.edit', $city->city_id) }}">
-                                        <i class="fas fa-edit"></i> Editar
-                                    </a>
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('¿Está seguro de eliminar esta ciudad?')">
-                                        <i class="fas fa-trash"></i> Eliminar
-                                    </button>
+                                    @if(auth()->user()->role->name !== 'invitado')
+                                        <a class="btn btn-primary btn-xs" href="{{ route('cities.edit', $city->city_id) }}">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('¿Está seguro de eliminar esta ciudad?')">
+                                            <i class="fas fa-trash"></i> Eliminar
+                                        </button>
+                                    @endif
                                 </form>
                             </td>
                         </tr>

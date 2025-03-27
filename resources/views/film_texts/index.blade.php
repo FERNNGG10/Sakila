@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="float-left">Textos de Películas</h3>
+                    @if(auth()->user()->role->name !== 'invitado')
                     <a href="{{ route('film_texts.create') }}" class="btn btn-primary float-right">
                         <i class="fas fa-plus"></i> Nuevo Texto
                     </a>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -47,6 +49,7 @@
                                         <a class="btn btn-info btn-sm" href="{{ route('film_texts.show', $filmText->film_id) }}">
                                             <i class="fas fa-eye"></i> Ver
                                         </a>
+                                        @if(auth()->user()->role->name !== 'invitado')
                                         <a class="btn btn-primary btn-sm" href="{{ route('film_texts.edit', $filmText->film_id) }}">
                                             <i class="fas fa-edit"></i> Editar
                                         </a>
@@ -55,6 +58,7 @@
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este texto?')">
                                             <i class="fas fa-trash"></i> Eliminar
                                         </button>
+                                        @endif
                                     </form>
                                 </td>
                             </tr>
