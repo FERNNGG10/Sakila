@@ -40,6 +40,7 @@ Route::get('/register', [AuthController::class, 'registerindex'])->name('registe
 Route::post('/register', [AuthController::class, 'register'])->name('register.register');
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/factor/{user}', [AuthController::class, 'factor'])->name('factor');
 Route::post('/twofa/{user}', [AuthController::class, 'twofa'])->name('twofa');
 Route::post('/resend-code/{user}', [AuthController::class, 'resendCode'])->name('resendCode');

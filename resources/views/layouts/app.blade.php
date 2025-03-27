@@ -46,18 +46,18 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar Menu -->
+                {{-- filepath: c:\Users\panch\Documents\Proyectos\Practicas Elias\Sakila\resources\views\layouts\app.blade.php --}}
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        @php
+                            $userRole = auth()->user()->role->name; // Obtiene el rol del usuario autenticado
+                        @endphp
+                
+                        {{-- Opciones visibles para todos los roles --}}
                         <li class="nav-item">
-                            <a href="{{ route('actors.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-user-tie"></i>
-                                <p>Actores</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('addresses.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-map-marker-alt"></i>
-                                <p>Direcciones</p>
+                            <a href="{{ route('films.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-film"></i>
+                                <p>Películas</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -67,45 +67,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('cities.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-city"></i>
-                                <p>Ciudades</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('countries.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-globe"></i>
-                                <p>Países</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('customers.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>Clientes</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('films.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-film"></i>
-                                <p>Películas</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('film-actors.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-user-friends"></i>
-                                <p>Actores de Películas</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('film-categories.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-list"></i>
-                                <p>Categorías de Películas</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('film_texts.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <p>Textos de Películas</p>
+                            <a href="{{ route('actors.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>Actores</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -114,40 +78,95 @@
                                 <p>Inventario</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('languages.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-language"></i>
-                                <p>Idiomas</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('payments.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-credit-card"></i>
-                                <p>Pagos</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('rentals.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-handshake"></i>
-                                <p>Alquileres</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('staffs.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-id-badge"></i>
-                                <p>Personal</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('stores.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-store"></i>
-                                <p>Tiendas</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('users.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-users-cog"></i>
-                                <p>Usuarios</p>
+                
+                        {{-- Opciones adicionales visibles solo para roles distintos de "cliente" --}}
+                        @if ($userRole !== 'cliente')
+                            <li class="nav-item">
+                                <a href="{{ route('addresses.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-map-marker-alt"></i>
+                                    <p>Direcciones</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('cities.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-city"></i>
+                                    <p>Ciudades</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('countries.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-globe"></i>
+                                    <p>Países</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('customers.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Clientes</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('film-actors.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-user-friends"></i>
+                                    <p>Actores de Películas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('film-categories.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Categorías de Películas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('film_texts.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-file-alt"></i>
+                                    <p>Textos de Películas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('languages.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-language"></i>
+                                    <p>Idiomas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('payments.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-credit-card"></i>
+                                    <p>Pagos</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('rentals.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-handshake"></i>
+                                    <p>Alquileres</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('staffs.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-id-badge"></i>
+                                    <p>Personal</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('stores.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-store"></i>
+                                    <p>Tiendas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('users.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-users-cog"></i>
+                                    <p>Usuarios</p>
+                                </a>
+                            </li>
+                        @endif
+                
+                        {{-- Opción de cerrar sesión visible para todos --}}
+                        <li class="nav-item mt-3">
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ route('logout') }}" class="nav-link text-danger">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>Cerrar Sesión</p>
                             </a>
                         </li>
                     </ul>
