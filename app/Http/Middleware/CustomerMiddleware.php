@@ -16,6 +16,14 @@ class CustomerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+       
+        
+        if ($request->user() && ($request->user()->rol_id == 3 || $request->user()->rol_id == 1) || ($request->user()->rol_id == 2 && $request->method() == 'GET')) {
+           
+            return $next($request);
+        }
+
+       
+        return redirect('/dashboard')->with('error', 'No tienes permiso para acceder a esta página.');
     }
 }

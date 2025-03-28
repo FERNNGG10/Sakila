@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Staff extends Model
+class Staff extends Authenticatable
 {
-    use HasFactory;
+
+     use HasApiTokens, HasFactory, Notifiable;
+
     protected $table = 'staff';
     protected $primaryKey = 'staff_id';
     public $timestamps = false;
@@ -21,6 +26,7 @@ class Staff extends Model
         'active',
         'username',
         'password',
+        'rol_id',
     ];
 
     protected $hidden = [
@@ -50,5 +56,9 @@ class Staff extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class, 'staff_id');
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'rol_id');
     }
 }

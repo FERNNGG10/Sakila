@@ -213,10 +213,16 @@
                 </form>
 
                 <div class="links-container text-center">
-                    <p class="mb-1">
-                        <a href="#">¿Olvidaste tu contraseña?</a>
-                    </p>
-                </div>
+                <p class="mb-1">
+                    <a href="#" id="forgot-password-link">¿Olvidaste tu contraseña?</a>
+                </p>
+            </div>
+
+            <!-- Añade un formulario oculto para el restablecimiento de contraseña -->
+            <form id="reset-password-form" action="{{ route('resetPassword') }}" method="post" style="display: none;">
+                @csrf
+                <input type="hidden" name="email" id="reset-email">
+            </form>
             </div>
         </div>
 
@@ -235,6 +241,19 @@
         // Animación simple para el formulario
         $(document).ready(function() {
             $('.login-card-body').hide().fadeIn(1000);
+            $('#forgot-password-link').click(function(e) {
+            e.preventDefault();
+            
+            // Obtener el email del formulario principal
+            var email = $('input[name="email"]').val();
+
+            
+            // Establecer el email en el formulario de restablecimiento
+            $('#reset-email').val(email);
+            
+            // Enviar el formulario de restablecimiento
+            $('#reset-password-form').submit();
+        });
         });
     </script>
 </body>

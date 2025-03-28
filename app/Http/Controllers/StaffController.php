@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Staff;
 use App\Models\Store;
 use App\Models\Address;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -20,8 +21,9 @@ class StaffController extends Controller
     public function create()
     {
         $stores = Store::all();
+        $roles = Role::all();
         $addresses = Address::with('city.country')->get();
-        return view('staff.create', compact('stores', 'addresses'));
+        return view('staff.create', compact('stores', 'addresses','roles'));
     }
 
     public function store(Request $request)
@@ -67,8 +69,9 @@ class StaffController extends Controller
     public function edit(Staff $staff)
     {
         $stores = Store::all();
+        $roles = Role::all();
         $addresses = Address::with('city.country')->get();
-        return view('staff.edit', compact('staff', 'stores', 'addresses'));
+        return view('staff.edit', compact('staff', 'stores', 'addresses', 'roles'));
     }
 
     public function update(Request $request, Staff $staff)

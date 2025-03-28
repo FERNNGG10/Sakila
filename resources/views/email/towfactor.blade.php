@@ -60,7 +60,7 @@
                 <!-- <img src="URL_DE_TU_LOGO" alt="Sakila Logo" width="120"> -->
             </div>
             <p>Hola {{ $user->name }},</p>
-            <p>Para completar tu inicio de sesión, utiliza el siguiente código de verificación:</p>
+            <p>Utiliza el siguiente código de verificación:</p>
             <div class="code">{{ $code }}</div>
             <p>Este código expirará en 5 minutos. Si no has solicitado este código, por favor ignora este correo.</p>
             <p>No compartas este código con nadie, incluyendo el personal de Sakila.</p>

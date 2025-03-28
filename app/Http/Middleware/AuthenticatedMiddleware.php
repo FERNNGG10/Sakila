@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class GuestMiddleware
+class AuthenticatedMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,6 +16,10 @@ class GuestMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if ($request->user()) {
+            return redirect('/dashboard');
+        }
+        return route('login');
+
     }
 }

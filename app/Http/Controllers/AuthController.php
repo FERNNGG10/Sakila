@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\TwoFactorCode;
+use App\Models\Staff;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $credentials['email'])->first();
+        $user = Staff::where('email', $credentials['email'])->first();
 
         // Verificar si el usuario existe y la contraseña es correcta
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
@@ -41,15 +42,15 @@ class AuthController extends Controller
 
         Mail::to($user->email)->send(new TwoFactorCode($user, $code));
 
-        return redirect()->route('factor', ['user' => $user->id]);
+        return redirect()->route('factor', ['user' => $user->staff_id]);
     }
 
-    public function factor(User $user)
+    public function factor(Staff $user)
     {
         return view('codigo',['user' => $user]);
     }
 
-    public function twofa(Request $request, User $user)
+    public function twofa(Request $request, Staff $user)
     {
         $request->validate([
             'code' => 'required|numeric',
@@ -66,7 +67,7 @@ class AuthController extends Controller
     }
 
 
-    public function resendCode(User $user)
+    public function resendCode(Staff $user)
     {
         // Generar nuevo código
         $code = rand(100000, 999999);
@@ -83,6 +84,22 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect()->route('login');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = Staff::where('email', $request->email)->first();
+
+        if (!$user) {
+            return back()->withErrors(['credentials' => 'No se encontró un usuario con ese correo electrónico.']);
+        }
+        
+
+       
     }
 
 }

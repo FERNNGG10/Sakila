@@ -11,7 +11,19 @@
     </div><!-- /.container-fluid -->
 </div>
 <!-- /.content-header -->
-
+@if(session('error'))
+<div class="container-fluid">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-exclamation-circle mr-2" style="font-size: 1.25rem;"></i>
+            <strong>{{ session('error') }}</strong>
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+@endif
 <!-- Main content -->
 <div class="content">
     <div class="container-fluid">

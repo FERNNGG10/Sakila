@@ -141,7 +141,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('twofa', ['user' => $user->id]) }}" method="post">
+                <form action="{{ route('twofa', ['user' => $user->staff_id]) }}" method="post">
                     @csrf
                     <div class="code-group">
                         <div class="input-group">
@@ -173,7 +173,7 @@
                         <a href="{{ route('login') }}">Volver al inicio de sesión</a>
                     </p>
                     <p class="mb-0">
-                        <a href="#" id="resendCode" data-user="{{ $user->id }}">No recibí mi código, reenviar</a>
+                        <a href="#" id="resendCode" data-user="{{ $user->staff_id }}">No recibí mi código, reenviar</a>
                     </p>
                 </div>
             </div>

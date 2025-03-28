@@ -6,10 +6,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="float-left">Personal</h3>
+                    <h3 class="float-left">
+                        <i class="fas fa-users"></i> Gestión de Personal
+                    </h3>
+                    @if(auth()->user()->role && auth()->user()->role->name !== 'invitado')
                     <a href="{{ route('staffs.create') }}" class="btn btn-primary float-right">
                         <i class="fas fa-plus"></i> Nuevo Personal
                     </a>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -27,48 +31,56 @@
                         </div>
                     @endif
 
-                    <table class="table table-bordered table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Dirección</th>
-                                <th>Tienda</th>
-                                <th>Activo</th>
-                                <th>Última Actualización</th>
-                                <th width="280px">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($staffs as $staff)
-                            <tr>
-                                <td>{{ $staff->staff_id }}</td>
-                                <td>{{ $staff->first_name }}</td>
-                                <td>{{ $staff->last_name }}</td>
-                                <td>{{ $staff->address->address }}</td>
-                                <td>{{ $staff->store->store_id }}</td>
-                                <td>{{ $staff->active ? 'Sí' : 'No' }}</td>
-                                <td>{{ $staff->last_update }}</td>
-                                <td>
-                                    <form action="{{ route('staffs.destroy', $staff->staff_id) }}" method="POST" class="d-inline">
-                                        <a class="btn btn-info btn-sm" href="{{ route('staffs.show', $staff->staff_id) }}">
-                                            <i class="fas fa-eye"></i> Ver
-                                        </a>
-                                        <a class="btn btn-primary btn-sm" href="{{ route('staffs.edit', $staff->staff_id) }}">
-                                            <i class="fas fa-edit"></i> Editar
-                                        </a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este personal?')">
-                                            <i class="fas fa-trash"></i> Eliminar
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead class="bg-primary text-white">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Email</th>
+                                    <th>Tienda</th>
+                                    <th>Estado</th>
+                                    <th>Rol</th>
+                                    <th width="200px">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($staffs as $staff)
+                                <tr>
+                                    <td>{{ $staff->staff_id }}</td>
+                                    <td>{{ $staff->first_name }}</td>
+                                    <td>{{ $staff->last_name }}</td>
+                                    <td>{{ $staff->email }}</td>
+                                    <td>Tienda {{ $staff->store->store_id }}</td>
+                                    <td>
+                                        @if($staff->active)
+                                            <span class="badge bg-success">Activo</span>
+                                        @else
+                                            <span class="badge bg-danger">Inactivo</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $staff->role ? $staff->role->name : 'Sin rol' }}</td>
+                                    <td>
+                                        <form action="{{ route('staffs.destroy', $staff->staff_id) }}" method="POST" class="d-inline">
+                                            <a class="btn btn-info btn-sm" href="{{ route('staffs.show', $staff->staff_id) }}">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a class="btn btn-primary btn-sm" href="{{ route('staffs.edit', $staff->staff_id) }}">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este miembro del personal?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                     
                     <div class="pagination pagination-sm m-0 float-right">
                         {{ $staffs->links() }}
