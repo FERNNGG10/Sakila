@@ -45,8 +45,13 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/factor/{user}', [AuthController::class, 'factor'])->name('factor');
 Route::post('/twofa/{user}', [AuthController::class, 'twofa'])->name('twofa');
 Route::post('/resend-code/{user}', [AuthController::class, 'resendCode'])->name('resendCode');
+Route::post('resetPassword', [AuthController::class, 'resetPassword'])->name('resetPassword');
+Route::get('2fapassword/{user}',[AuthController::class, 'show2fapassword'])->name('2fapassword');
+Route::get('2fapassword/{user}',[AuthController::class, 'show2fapassword'])->name('2fapassword');
+Route::post('2fapassword/{user}',[AuthController::class, 'twofapassword'])->name('twofapassword');
+Route::get('showpassword/{user}',[AuthController::class, 'showchangepassword'])->name('showpassword');
+Route::post('updatePassword/{user}',[AuthController::class, 'updatePassword'])->name('updatePassword');
 
-Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('resetPassword');
 
 
 Route::group(['middleware' => ['auth']], function () {

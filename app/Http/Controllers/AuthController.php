@@ -91,15 +91,55 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email',
         ]);
-
         $user = Staff::where('email', $request->email)->first();
+        $code = rand(100000, 999999);
+        $user->code = Hash::make($code);
+        $user->save();
+        Mail::to($user->email)->send(new TwoFactorCode($user, $code));
 
         if (!$user) {
             return back()->withErrors(['credentials' => 'No se encontró un usuario con ese correo electrónico.']);
         }
+        return redirect()->route('2fapassword', ['user' => $user->staff_id]);
         
+    }
 
-       
+    public function show2fapassword(Staff $user)
+    {
+        return view('codigopassword', ['user' => $user]);
+    }
+
+
+    public function showchangepassword(Staff $user)
+    {
+        return view('changepassword', ['user' => $user]);
+    }
+
+    public function twofapassword(Request $request, Staff $user)
+    {
+        $request->validate([
+            'code' => 'required|numeric',
+        ]);
+
+        if ($user && Hash::check($request->code, $user->code)) {
+            $user->code = null;
+            $user->save();
+            return redirect()->route('showpassword', ['user' => $user->staff_id]);
+        }
+        return back()
+            ->withErrors(['code' => 'El código introducido es incorrecto']);
+    }
+
+    public function updatePassword(Request $request, Staff $user)
+    {
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->route('login')->with('success', 'Contraseña actualizada con éxito.');
     }
 
 }
