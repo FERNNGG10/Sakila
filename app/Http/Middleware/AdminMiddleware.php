@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class AdminOnlyMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,12 +17,12 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        
-        if (($request->user() && $request->user()->rol_id == 1) || ($request->user()->rol_id == 2 && $request->method() == 'GET')) {
+        $user = Auth::user();
 
+        if ($user && $user->role->name === 'admin') {
             return $next($request);
         }
 
-        return redirect('/dashboard')->with('error', 'No tienes permiso para acceder a esta página.');
+        return redirect()->route('films.index')->with('error', 'No tienes permiso para acceder al dashboard.');
     }
 }
