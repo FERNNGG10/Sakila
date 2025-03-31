@@ -19,7 +19,7 @@ class AdminOnlyMiddleware
     {
         $user = Auth::user();
 
-        if ($user && $user->role->name === 'admin') {
+        if ($user && $user->role->name === 'administrador') {
             return $next($request);
         }
 

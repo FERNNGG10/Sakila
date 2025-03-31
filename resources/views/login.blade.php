@@ -161,7 +161,7 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Inicia sesión para comenzar tu sesión</p>
-                
+
                 @if (session('success'))
                 <div class="alert alert-success">
                     <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
@@ -186,25 +186,25 @@
                 <form action="{{ route('login.login') }}" method="post">
                     @csrf
                     <div class="input-group mb-4">
-                        <input type="email" class="form-control {{ $errors->has('email') || $errors->has('credentials') ? 'is-invalid' : '' }}" 
-                               name="email" placeholder="Correo electrónico" value="{{ old('email') }}" required autofocus>
+                        <input type="email" class="form-control {{ $errors->has('email') || $errors->has('credentials') ? 'is-invalid' : '' }}"
+                            name="email" placeholder="Correo electrónico" value="{{ old('email') }}" required autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="input-group mb-4">
-                        <input type="password" class="form-control {{ $errors->has('password') || $errors->has('credentials') ? 'is-invalid' : '' }}" 
-                               name="password" placeholder="Contraseña" required>
+                        <input type="password" class="form-control {{ $errors->has('password') || $errors->has('credentials') ? 'is-invalid' : '' }}"
+                            name="password" placeholder="Contraseña" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row mb-4">
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary btn-block btn-submit">Entrar</button>
@@ -213,16 +213,12 @@
                 </form>
 
                 <div class="links-container text-center">
-                <p class="mb-1">
-                    <a href="#" id="forgot-password-link">¿Olvidaste tu contraseña?</a>
-                </p>
-            </div>
+                    <p class="mb-1">
+                        <a href="#" id="forgot-password-link">¿Olvidaste tu contraseña?</a>
+                    </p>
+                </div>
 
-            <!-- Añade un formulario oculto para el restablecimiento de contraseña -->
-            <form id="reset-password-form" action="{{ route('resetPassword') }}" method="post" style="display: none;">
-                @csrf
-                <input type="hidden" name="email" id="reset-email">
-            </form>
+              
             </div>
         </div>
 
@@ -242,18 +238,18 @@
         $(document).ready(function() {
             $('.login-card-body').hide().fadeIn(1000);
             $('#forgot-password-link').click(function(e) {
-            e.preventDefault();
-            
-            // Obtener el email del formulario principal
-            var email = $('input[name="email"]').val();
+                e.preventDefault();
 
-            
-            // Establecer el email en el formulario de restablecimiento
-            $('#reset-email').val(email);
-            
-            // Enviar el formulario de restablecimiento
-            $('#reset-password-form').submit();
-        });
+                // Obtener el email del formulario principal
+                var email = $('input[name="email"]').val();
+
+
+                // Establecer el email en el formulario de restablecimiento
+                $('#reset-email').val(email);
+
+                // Enviar el formulario de restablecimiento
+                $('#reset-password-form').submit();
+            });
         });
     </script>
 </body>
