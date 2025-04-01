@@ -217,8 +217,12 @@
                         <a href="#" id="forgot-password-link">¿Olvidaste tu contraseña?</a>
                     </p>
                 </div>
-
-              
+                <!-- Añade un formulario oculto para el restablecimiento de contraseña -->
+                <form id="reset-password-form" action="{{ route('resetPassword') }}" method="post" style="display: none;">
+                    @csrf
+                    <input type="hidden" name="email" id="reset-email">
+                             
+                </form>
             </div>
         </div>
 

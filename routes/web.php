@@ -49,6 +49,7 @@ Route::get('2fapassword/{user}',[AuthController::class, 'show2fapassword'])->nam
 Route::post('2fapassword/{user}',[AuthController::class, 'twofapassword'])->name('twofapassword');
 Route::get('showpassword/{user}',[AuthController::class, 'showchangepassword'])->name('showpassword');
 Route::post('updatePassword/{user}',[AuthController::class, 'updatePassword'])->name('updatePassword');
+Route::post('resetPassword', [AuthController::class, 'resetPassword'])->name('resetPassword');
 
 // Middleware para verificar autenticación
 Route::group(['middleware' => ['auth']], function () {
